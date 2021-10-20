@@ -41,6 +41,8 @@
 </dependency>
 ```
 
+
+
 ####  配置文件(可选)
 
 > 自动装配中默认ES地址与我们如下定义内容相同
@@ -148,25 +150,17 @@ class SpringBootEsApplicationTests {
     public void createIndex(){
         System.out.println("创建索引");
     }
-
-    /*
-    失效
-    @Test
-    public void deleteIndex(){
-        String delete = template.delete(new Product());
-        System.out.println("删除索引："+delete);
-    }
-    */
+ 
 
     @Test
     public void save(){
-        productDao.save(new Product(1l, "华为手机好", "手机", 1000d, "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fmp.ofweek.com%2Fdata%2Fimages%2Fim2maker%2F2020-04-09%2F5dafbb0ab0040d34523c1e19beb732eb.png&refer=http%3A%2F%2Fmp.ofweek.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1637229208&t=5eb27b8579ce2916b7f6257707772fb0"));
+        productDao.save(new Product(1l, "华为手机好", "手机", 1000d, "https://gimg2.baidu.com/"));
         System.out.println("保存成功");
     }
 
     @Test
     public void update(){
-        productDao.save(new Product(1l, "小米手机", "手机", 1000d, "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fmp.ofweek.com%2Fdata%2Fimages%2Fim2maker%2F2020-04-09%2F5dafbb0ab0040d34523c1e19beb732eb.png&refer=http%3A%2F%2Fmp.ofweek.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1637229208&t=5eb27b8579ce2916b7f6257707772fb0"));
+        productDao.save(new Product(1l, "小米手机", "手机", 1000d, "https://gimg2.baidu.com/image_search"));
         System.out.println("更新成功");
     }
 
@@ -181,7 +175,6 @@ class SpringBootEsApplicationTests {
     public void getAll(){
         Iterable<Product> all = productDao.findAll();
         all.forEach(System.out::println);
-//        System.out.println(product);
     }
 
     @Test

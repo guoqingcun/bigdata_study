@@ -43,7 +43,7 @@
 
 > 在chrome浏览器中安装elasticsearch head插件，以便查看elasticsearch状态和数据。
 >
-> ![image-20211020234944201](5 ES集成K.assets/image-20211020234944201.png)
+> ![image-20211020234944201](Untitled.assets/image-20211020234944201.png)
 
 
 
@@ -52,4 +52,4 @@
 > - bin/kibana.bat
 > - http://localhost:5601/
 >
-> ![img](5 ES集成K.assets/clipboard.png)
+> ![img](Untitled.assets/clipboar-1d.png)
