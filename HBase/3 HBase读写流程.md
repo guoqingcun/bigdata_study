@@ -2,11 +2,11 @@
 
 **写流程**
 
-![img](3 HBase读写流程.assets/hbase写流程.png)
+![img](Untitled.assets/hbase写流程-16348157670102.png)
 
 **读流程**
 
-![img](3 HBase读写流程.assets/hbase读流程.png)
+![img](Untitled.assets/hbase读流程-16348157810673.png)
 
 ### 总结
 
