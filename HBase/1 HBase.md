@@ -37,63 +37,63 @@
 
 ![img](Untitled.assets/hbase架构图.png)
 
-**角色详解**
+### 角色详解
 
-1. client
+**client**
 
-   > client包含访问HBase的接口，还维护了对应的cache来加速HBase的访问。比如cache的Meta元数据的信息。
+> client包含访问HBase的接口，还维护了对应的cache来加速HBase的访问。比如cache的Meta元数据的信息。
 
-2. zookeeper
+**zookeeper**
 
-   > 通过zk实现master高可用、RegionServer的监控、元数据的入口以及集群配置的维护工作。
+> 通过zk实现master高可用、RegionServer的监控、元数据的入口以及集群配置的维护工作。
+>
+> 1. zk保证集群中只有1个master在运行，如果master异常，通过竞争产生新的master
+> 2. zk监控RegionServer状态，通知master管理RegionServer上下线。
+> 3. zk存储元数据的统一入口地址。
 
-3. 1. 1. zk保证集群中只有1个master在运行，如果master异常，通过竞争产生新的master
-      2. zk监控RegionServer状态，通知master管理RegionServer上下线。
-      3. zk存储元数据的统一入口地址。
+**Hmaster**
 
-4. Hmaster
+> 职责
+>
+> 1. 为RegionServer分配Region
+> 2. 维护集群的负载均衡
+> 3. 维护集群的元数据信息
+> 4. 故障转移，将失效Region分配到正常RegionServer上
+> 5. RegionSever失效，协调对应Hlog的拆分
 
-   > 职责
+**HRegionServer**
 
-5. 1. 1. 为RegionServer分配Region
-      2. 维护集群的负载均衡
-      3. 维护集群的元数据信息
-      4. 故障转移，将失效Region分配到正常RegionServer上
-      5. RegionSever失效，协调对应Hlog的拆分
+> RegionServer直接面向用户读写请求，是业务干活节点，功能如下：
+>
+> 1. 管理master分配的Region
+> 2. 处理客户端读写请求
+> 3. 负责和HDFS交互，存储数据到HDFS
+> 4. 负责Region变大后拆分
+> 5. 负责Storefile合并工作
 
-6. HRegionServer
+**HDSF**
 
-7. > RegionServer直接面向用户读写请求，是业务干活节点，功能如下：
+> 提供分布式数据存储服务。自带副本机制。保证高可用和高可靠。
 
-8. 1. 1. 管理master分配的Region
-      2. 处理客户端读写请求
-      3. 负责和HDFS交互，存储数据到HDFS
-      4. 负责Region变大后拆分
-      5. 负责Storefile合并工作
+**Hlog**
 
-9. HDSF
+> 又名Write-Ahead logs。HBase的写操作时，数据不是直接落盘，它会在内存中停留一段时间（时间及数据量阈值可以设置）。为了确保内存数据不丢失，数据先写入write-Ahead日志文件中，然后再写入内存。当系统故障时，可根据日志文件重建。类比mysql中binglog作用。
 
-10. > 提供分布式数据存储服务。自带副本机制。保证高可用和高可靠。
+**Region**
 
-11. Hlog
+> 可以理解为是一张表，当表数据量大成要分库分表，也就是拆分Region。
+>
+> Region是根据RowKey值拆分存储在不同的Regionserver中。
 
-12. > 又名Write-Ahead logs。HBase的写操作时，数据不是直接落盘，它会在内存中停留一段时间（时间及数据量阈值可以设置）。为了确保内存数据不丢失，数据先写入write-Ahead日志文件中，然后再写入内存。当系统故障时，可根据日志文件重建。类比mysql中binglog作用。
+**Store**
 
-13. Region
+> Store对应列族
 
-14. > 可以理解为是一张表，当表数据量大成要分库分表，也就是拆分Region。
+**MemStore**
 
-15. > Region是根据RowKey值拆分存储在不同的Regionserver中
+> 内存中存储当前的操作数据
 
-16. Store
+**HFile**
 
-17. > Store对应列族
-
-18. MemStore
-
-19. > 内存中存储当前的操作数据
-
-20. HFile
-
-21. > 实际物理文件，StoreFile以HFile的格式存储在HDFS上。
+> 实际物理文件，StoreFile以HFile的格式存储在HDFS上。
 
