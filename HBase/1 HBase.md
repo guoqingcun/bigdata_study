@@ -2,38 +2,38 @@
 
 
 
-**HBase**
+### HBase
 
 > Apache HBase 是一个开源的、分布式的、版本化的、非关系型数据库。当您需要对大数据进行随机、实时读/写访问时，请使用 Apache HBas。该项目的目标是在商品硬件集群上托管非常大的表——数十亿行 X 数百万列。
 
 
 
-**HBase特点**
+### HBase特点
 
-- 海量存储
+海量存储
 
-- - 适合存储PB级数据，能在几十到百毫秒内返回数据。
+> 适合存储PB级数据，能在几十到百毫秒内返回数据。
 
-- 列式存储
+列式存储
 
-- - 列族存储，列族管理多列。
+> 列族存储，列族管理多列。
 
-- 极易扩展
+极易扩展
 
-- - 易扩展RegionServer，regionserver负责管理region和业务访问
-  - 易扩展Datanode，datanode负责存储
+> 1. 易扩展RegionServer，regionserver负责管理region和业务访问。
+> 2. 易扩展Datanode，datanode负责存储
 
-- 高并发
+高并发
 
-- 高可用
+高可用
 
-- 稀疏
+稀疏
 
-- - 列数据为空不占用空间
+> 列数据为空不占用空间
 
 
 
-**架构**
+### 架构
 
 ![img](Untitled.assets/hbase架构图.png)
 
